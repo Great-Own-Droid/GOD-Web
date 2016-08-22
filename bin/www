@@ -30,7 +30,7 @@ models.sequelize.sync().then(function () {
     server = app.listen(app.get('port'), function () {
         console.log('Express server listening on port ' + server.address().port);
     });
-    
+
     /**
      * Attach handler to server events
      */
@@ -45,6 +45,7 @@ models.sequelize.sync().then(function () {
 
 function normalizePort(val) {
     var port = parseInt(val, 10);
+
 
     if (isNaN(port)) {
         // named pipe
