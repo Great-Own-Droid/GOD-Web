@@ -9,8 +9,8 @@ var del = require('./del');
 
 router.get('/', getAll);
 router.get('/:id', get);
-router.post('/', post);
-router.put('/:id', put);
+router.post('/:id', post);
+router.put('/', put);
 router.delete('/:id', del);
 
 
