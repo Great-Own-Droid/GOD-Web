@@ -1,11 +1,11 @@
 var express = require('express');
 var router = express.Router();
 
-var getAll = require('./getAll');
-var get = require('./get');
-var post = require('./post');
-var put = require('./put');
-var del = require('./del');
+var getAll = require('./getAll.js');
+var get = require('./get.js');
+var post = require('./post.js');
+var put = require('./put.js');
+var del = require('./delete.js');
 
 router.get('/', getAll);
 router.get('/:id', get);
