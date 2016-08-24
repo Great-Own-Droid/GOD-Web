@@ -1,8 +1,8 @@
+console.log("API ROUTER : Start define mountable apis");
 var express = require('express');
 
 var contactRouter = require('./contact');
-var userRouter = require('./user');
-
+//var userRouter = require('./user');
 
 var router = express.Router();
 
@@ -15,12 +15,14 @@ router.use(function(req, res, next){
 
 
 // Define all apis
-router.use('/contact', contactRouter);
-router.use('/user', userRouter);
+console.log("Mount contact api");
+//router.use('/contact', contactRouter);
+//router.use('/user', userRouter);
+
 
 
 // Api not found
-router.use(function (req, res) {
+router.use(function (req, res, next) {
     res.status(404);
     res.render('error', {
         message: 'API NOT FOUND',
@@ -28,4 +30,5 @@ router.use(function (req, res) {
     });
 });
 
+console.log("API ROUTER : End define mountable apis");
 module.exports = router;

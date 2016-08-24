@@ -1,0 +1,10 @@
+extends layout
+
+block content
+    h1= title
+	
+    form(action="/users/new", method="post")
+        input(type="text", name="username")
+        input(type="text", name="password")
+        input(type="text", name="salt")
+        input(type="submit")

@@ -1,13 +1,15 @@
 var express = require('express');
-var ApisRouter = require('./apis');
-var ViewsRouter = require('./views');
+var apisRouter = require('./apis');
+//var viewsRouter = require('./views');
 
 var router = express.Router();
 
 // Specifics paths
-router.use('/api', ApisRouter);
+console.log("Mount apis routes");
+router.use('/api', apisRouter);
 
 // Default path for views
-router.use('/', ViewsRouter);
+console.log("Mount views routes");
+//router.use('/', viewsRouter);
 
 module.exports = router;
