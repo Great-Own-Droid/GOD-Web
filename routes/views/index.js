@@ -7,7 +7,7 @@ var router = express.Router();
 
 // Define global permission access for views
 router.use(function(req, res, next){
-	// TODO: permissions d'accès aux vues
+	// TODO: permissions d'accÃ©s aux vues
 	next();
 });
 
