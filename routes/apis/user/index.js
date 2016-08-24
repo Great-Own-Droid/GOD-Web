@@ -20,25 +20,25 @@ module.exports = router;
 
 console.log("User API ROUTER : End define mountable methods");
 /*
-// TODO: to move in views routes
-router.get('/login', function (req, res, next) {
-    res.render('login', {
-        title: 'Login'
-    });
-})
+ // TODO: to move in views routes
+ router.get('/login', function (req, res, next) {
+ res.render('login', {
+ title: 'Login'
+ });
+ })
 
-router.post('/login', function (req, res, next) {
-    models.User.find({
-        where: {
-            username: req.body.username,
-        }
-    }).then(function (user) {
-        if (user) {
-            res.redirect('/');
-        } else {
-            console.log(false);
-            res.redirect('/users/login');
-        }
-    });
-})
-*/
+ router.post('/login', function (req, res, next) {
+ models.User.find({
+ where: {
+ username: req.body.username,
+ }
+ }).then(function (user) {
+ if (user) {
+ res.redirect('/');
+ } else {
+ console.log(false);
+ res.redirect('/users/login');
+ }
+ });
+ })
+ */

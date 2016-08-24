@@ -1,7 +1,7 @@
 var models = require('../../../models');
 
 module.exports = function (req, res) {
-	models.User.destroy({
+    models.User.destroy({
         where: {
             id: req.params.user_id
         }

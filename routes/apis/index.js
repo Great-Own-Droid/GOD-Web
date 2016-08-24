@@ -8,9 +8,9 @@ var router = express.Router();
 
 
 // Define global permission access for api
-router.use(function(req, res, next){
-	// TODO: permissions d'accès aux apis
-	next();
+router.use(function (req, res, next) {
+    // TODO: permissions d'accès aux apis
+    next();
 });
 
 
@@ -18,7 +18,6 @@ router.use(function(req, res, next){
 console.log("Mount contact api");
 //router.use('/contact', contactRouter);
 //router.use('/user', userRouter);
-
 
 
 // Api not found

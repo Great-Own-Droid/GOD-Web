@@ -6,13 +6,13 @@ module.exports = function (req, res) {
             id: req.params.id
         }
     }).then(function (contact) {
-        if (contact == null){
+        if (contact == null) {
             res.status(404);
             res.json({
                 status: 404,
                 res: "not found"
             })
-        }else {
+        } else {
             res.json(contact);
         }
     });
