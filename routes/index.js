@@ -1,17 +1,13 @@
 var express = require('express');
+var ApisRouter = require('./apis');
+var ViewsRouter = require('./views');
+
 var router = express.Router();
-var models = require('../models');
 
-router.get('/', function (req, res) {
+// Specifics paths
+router.use('/api', ApisRouter);
 
-    models.User.findAll({
-        include: [models.Contact]
-    }).then(function (users) {
-        res.render('index', {
-            title: 'Sequelize: Express Example',
-            users: users
-        });
-    });
-});
+// Default path for views
+router.use('/', ViewsRouter);
 
 module.exports = router;
