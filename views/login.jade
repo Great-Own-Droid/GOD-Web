@@ -2,9 +2,7 @@ extends layout
 
 block content
     h1= title
-    p This is Sequelize greeting you :)
-
-    h2 Creating a new user
-    form(action="/users/login", method="post")
+	
+    form(action="/user/login", method="post")
         input(type="text", name="username")
         input(type="submit")

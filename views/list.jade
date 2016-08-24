@@ -1,0 +1,25 @@
+extends layout
+
+block content
+    h1= title
+
+    ul
+    each user in users
+        li
+            = user.username
+            | &nbsp;(
+            a(href="/users/" + user.id + "/destroy") Destroy
+            | )
+            ul
+                li
+                    | Creating a new task:
+                    form(action="/users/" + user.id + "/tasks/create", method="post", style="display: inline")
+                        input(type="text", name="title")
+                        input(type="submit")
+                each contact in user.Contacts
+                    li
+                        = contact.title
+                        | &nbsp;
+                        | (
+                        a(href="/users/" + user.id + "/tasks/" + contact.id + "/destroy") Destroy
+                        | )
