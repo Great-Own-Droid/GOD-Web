@@ -10,6 +10,7 @@ module.exports = function (sequelize, DataTypes) {
             associate: function (models) {
                 User.hasMany(models.Contact);
                 User.hasMany(models.Sim);
+                User.hasMany(models.Token);
             }
         }
     });

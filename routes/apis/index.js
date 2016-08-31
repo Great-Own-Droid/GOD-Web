@@ -6,19 +6,34 @@ var contactRouter = require('./contact');
 
 var router = express.Router();
 
+var models = require('../../models');
+
 
 // Define global permission access for api
 router.use(function (req, res, next) {
-    // TODO: permissions d'accès aux apis
-    next();
+    models.Token.findOne({
+        where: {
+            token: req.query.token,
+        }
+    }).then(function (token) {
+        if (token == null) {
+            res.status(401);
+            res.json({
+                status: 401,
+                res: "the token cannot identify you"
+            });
+            res.end();
+        } else {
+            res.locals.userId = token.dataValues.UserId;
+            next();
+        }
+    });
 });
-
 
 // Define all apis
 console.log("Mount contact api");
 router.use('/contact', contactRouter);
 //router.use('/user', userRouter);
-
 
 // Api not found
 router.use(function (req, res, next) {
