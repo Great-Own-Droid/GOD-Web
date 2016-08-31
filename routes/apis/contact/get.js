@@ -1,9 +1,10 @@
 var models = require('../../../models');
 
 module.exports = function (req, res) {
-    models.Contact.find({
+    models.Contact.findOne({
         where: {
-            id: req.params.id
+            id: req.params.id,
+            UserId: res.locals.userId
         }
     }).then(function (contact) {
         if (contact == null) {
