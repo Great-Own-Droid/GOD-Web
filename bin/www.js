@@ -18,23 +18,30 @@ app.set('port', port);
 
 var server;
 
+models.sequelize
+    .authenticate()
+    .then(function () {
+        /**
+         * Syncrhonise all sequelize models
+         */
+        models.sequelize
+            .sync()
+            .then(function () {
+                /**
+                 * Create HTTP server and listen on provided port
+                 */
+                server = app.listen(app.get('port'), function () {
+                    console.log('Express server listening on port ' + server.address().port);
+                });
 
-/**
- * Syncrhonise all sequelize models
- */
-models.sequelize.sync().then(function () {
-    /**
-     * Create HTTP server and listen on provided port
-     */
-    server = app.listen(app.get('port'), function () {
-        console.log('Express server listening on port ' + server.address().port);
-    });
-
-    /**
-     * Attach handler to server events
-     */
-    server.on('error', onError);
-    server.on('listening', onListening);
+                /**
+                 * Attach handler to server events
+                 */
+                server.on('error', onError);
+                server.on('listening', onListening);
+            });
+    }).catch(function (err) {
+    console.log('Impossible to connect to the database :', err.message);
 });
 
 
