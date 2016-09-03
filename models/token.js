@@ -1,7 +1,7 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
   var Token = sequelize.define('Token', {
-    token: DataTypes.STRING
+    value: DataTypes.STRING
   }, {
     classMethods: {
       associate: function(models) {

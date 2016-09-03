@@ -4,7 +4,7 @@ module.exports = function (req, res) {
     models.Contact.findOne({
         where: {
             id: req.params.id,
-            UserId: res.locals.userId
+            UserId: req.user.id
         }
     }).then(function (contact) {
         if (contact == null) {

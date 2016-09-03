@@ -1,6 +1,8 @@
 console.log("API ROUTER : Start define mountable apis");
 var express = require('express');
 
+var auth = require('../../controller/auth');
+
 var contactRouter = require('./contact');
 //var userRouter = require('./user');
 
@@ -11,23 +13,7 @@ var models = require('../../models');
 
 // Define global permission access for api
 router.use(function (req, res, next) {
-    models.Token.findOne({
-        where: {
-            token: req.query.token,
-        }
-    }).then(function (token) {
-        if (token == null) {
-            res.status(401);
-            res.json({
-                status: 401,
-                res: "the token cannot identify you"
-            });
-            res.end();
-        } else {
-            res.locals.userId = token.dataValues.UserId;
-            next();
-        }
-    });
+    auth.isBearerAuthenticated(req, res, next);
 });
 
 // Define all apis
