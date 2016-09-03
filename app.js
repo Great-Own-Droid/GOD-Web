@@ -4,6 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var config = require('./config/config.json');
+var models = require('./models');
 
 var app = express();
 
@@ -65,5 +67,23 @@ app.use(function (err, req, res, next) {
     });
 });
 
+models.sequelize
+    .authenticate()
+    .then(function () {
+        /**
+         * Syncrhonise all sequelize models
+         */
+        models.sequelize
+            .sync()
+            .then(function () {
+                /**
+                 * Create HTTP server and listen on provided port
+                 */
+                var server = app.listen(config.port, function () {
+                    console.log('Express server listening on port ' + server.address().port);
+                });
+            });
+    }).catch(function (err) {
+    console.log('Impossible to connect to the database :', err.message);
+});
 
-module.exports = app;
