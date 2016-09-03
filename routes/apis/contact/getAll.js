@@ -4,7 +4,7 @@ module.exports = function (req, res) {
 
 
     models.Contact.findAll({
-        where:{
+        where: {
             UserId: req.user.id
         }
     }).then(function (contacts) {
