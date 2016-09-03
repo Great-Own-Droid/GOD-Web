@@ -12,8 +12,8 @@ var del = require('./delete.js');
 
 router.get('/', getAll);
 router.get('/:id', get);
-router.post('/:id', post);
-router.put('/', put);
+router.post('/', post);
+router.put('/:id', put);
 router.delete('/:id', del);
 
 module.exports = router;
