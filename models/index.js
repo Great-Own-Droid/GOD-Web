@@ -8,14 +8,10 @@ var env = process.env.NODE_ENV || 'development';
 var config = require('../config/config.json');
 var db = {};
 
-if (config.use_env_variable) {
-    var sequelize = new Sequelize(process.env[config.use_env_variable]);
-} else {
-    var sequelize = new Sequelize(config.db.database, config.db.username, config.db.password, config.db);
-}
 
-fs
-    .readdirSync(__dirname)
+var sequelize = new Sequelize(config.db.database, config.db.username, config.db.password, config.db);
+
+fs.readdirSync(__dirname)
     .filter(function (file) {
         return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
     })
