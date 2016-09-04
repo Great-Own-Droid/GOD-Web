@@ -6,34 +6,33 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var config = require('./config/config.json');
 var models = require('./models');
+var logger = require('./controller/logger')
 
 var app = express();
 
 // view engine setup
-console.log("View engine setup");
+logger.info("View engine setup");
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-console.log("Logger setup");
-app.use(logger('dev'));
 
-console.log("Body parser setup");
+logger.info("Body parser setup");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
-console.log("Cookie parser setup");
+logger.info("Cookie parser setup");
 app.use(cookieParser());
 
 
-console.log("Serve static ressources setup");
+logger.info("Serve static ressources setup");
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Mount all routes
-console.log("Mount routes setup");
+logger.info("Mount routes setup");
 var routes = require('./routes');
-console.log("Access routes to mount");
+logger.info("Access routes to mount");
 app.use('/', routes);
 
 // catch 404 and forward to error handler
