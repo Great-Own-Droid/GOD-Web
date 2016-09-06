@@ -1,15 +1,17 @@
 console.log("API ROUTER : Start define mountable apis");
 var express = require('express');
+var models = require('../../models');
 
 var contactRouter = require('./contact');
 //var userRouter = require('./user');
 
+// Router externe montable ailleurs (exporté)
+var mountableRouter = express.Router();
+// Router interne montant les sous routes (l'ensemble des groupes d'api)
 var router = express.Router();
 
-var models = require('../../models');
-
-
 // Define global permission access for api
+/*
 router.use(function (req, res, next) {
     models.Token.findOne({
         where: {
@@ -29,11 +31,14 @@ router.use(function (req, res, next) {
         }
     });
 });
+*/
 
-// Define all apis
-console.log("Mount contact api");
-router.use('/contact', contactRouter);
-//router.use('/user', userRouter);
+// Ajout des apis à monter
+router.use(function(req, res, next){
+    console.log("routes/apis/index.js => '" + req.baseUrl + "'");
+    contactRouter(req, res, next);
+});
+//router.use(userRouter);
 
 // Api not found
 router.use(function (req, res, next) {
@@ -44,5 +49,18 @@ router.use(function (req, res, next) {
     })
 });
 
+mountableRouter.use(function(req, res, next){
+    console.log("routes/apis/index.js => '" + req.baseUrl + "'");
+    next();
+});
+
+// Monte le router interne sur le router montable externe
+mountableRouter.use('/api', function(req, res, next){
+    console.log("routes/apis/index.js => '" + req.baseUrl + "'");
+    router(req, res, next);
+});
+
+
+
 console.log("API ROUTER : End define mountable apis");
-module.exports = router;
+module.exports = mountableRouter;

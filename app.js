@@ -32,7 +32,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 console.log("Mount routes setup");
 var routes = require('./routes');
 console.log("Access routes to mount");
-app.use('/', routes);
+
+// Always go verify paths
+app.use(function(req, res, next){
+    console.log("app.js => '" + req.path + "'");    
+    console.log("app.js => '" + req.baseUrl + "'");
+    routes(req, res, next);
+});
+
+
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
