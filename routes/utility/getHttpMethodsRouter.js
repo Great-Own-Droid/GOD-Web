@@ -16,7 +16,6 @@ function getHttpMethodsRouter(dirPath, callback){
     // Router qui contiendra l'ensemble des méhodes http
     var router = express.Router();
 
-    console.log("DEBUT ajout contact method aux routes");
     fs.readdir(dirPath, function(err, files){
         if (err){
             console.error(err);
@@ -42,7 +41,6 @@ function getHttpMethodsRouter(dirPath, callback){
                 continue;
             }            
             filePath = path.join(dirPath, files[i]);
-            console.log("file to add to route : '" + filePath + "'");
             var httpMethod = require(filePath);
             if (typeof(httpMethod) == 'function'){
                 router.use(httpMethod);                   

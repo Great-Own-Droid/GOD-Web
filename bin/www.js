@@ -1,50 +1,38 @@
 #!/usr/bin/env node
 
-/**
- * Module dependencies.
- */
-
-var app = require('../app');
-var debug = require('debug')('GOD-Web:server');
+// natives requires
 var http = require('http');
+// libraries requires
+var debug = require('debug')('GOD-Web:server');
+// customs requires
+var app = require('../app');
 var models = require("../models");
 
-/**
- * Get port from environment and store in Express.
- */
+
+
+// Get port from environment and store in Express.
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 
 var server;
 
+// Syncrhonise all sequelize models
+models.sequelize.sync().then(function () {   
 
-/**
- * Syncrhonise all sequelize models
- */
-models.sequelize.sync().then(function () {
-    /**
-     * Create HTTP server and listen on provided port
-     */
+    // Create HTTP server and listen on provided port
     server = app.listen(app.get('port'), function () {
-        console.log('Express server listening on port ' + server.address().port);
+        console.log('server listening on port ' + server.address().port);
     });
-
-    /**
-     * Attach handler to server events
-     */
+    
+    // Attach handler to server events
     server.on('error', onError);
     server.on('listening', onListening);
 });
 
-
-/**
- * Normalize a port into a number, string, or false.
- */
-
+// Normalize a port into a number, string, or false
 function normalizePort(val) {
     var port = parseInt(val, 10);
-
 
     if (isNaN(port)) {
         // named pipe
@@ -59,10 +47,7 @@ function normalizePort(val) {
     return false;
 }
 
-/**
- * Event listener for HTTP server "error" event.
- */
-
+// Event listener for HTTP server "error" event
 function onError(error) {
     if (error.syscall !== 'listen') {
         throw error;
@@ -87,10 +72,7 @@ function onError(error) {
     }
 }
 
-/**
- * Event listener for HTTP server "listening" event.
- */
-
+// Event listener for HTTP server "listening" event.
 function onListening() {
     var addr = server.address();
     var bind = typeof addr === 'string'

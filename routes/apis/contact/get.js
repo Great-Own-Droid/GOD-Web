@@ -1,11 +1,14 @@
+// natives requires
+// libraries requires
 var express = require('express');
+// customs requires
 var models = require('../../../models');
+
+
 
 var router = express.Router();
 
-
 router.get('/:id', function(req, res) {
-    console.log("GET : /api/contact/" + req.params.id);
     models.Contact.findOne({
         where: {
             id: req.params.id,
@@ -15,7 +18,6 @@ router.get('/:id', function(req, res) {
     }).then(function (contact) {        
         // TODO: Mettre en place des tests si pas de type object et si ne contient pas une propriété attendue => lancer un code retour du style erreur interne et mettre en log
         if (contact == null) {
-            console.log("API CONTACT: Unknown contact");
             res.status(404);
             res.json({
                 status: 404,
@@ -23,7 +25,6 @@ router.get('/:id', function(req, res) {
             })
         } 
         else {
-            console.log("API CONTACT: Contact found");
             res.json(contact);
         }
     });
