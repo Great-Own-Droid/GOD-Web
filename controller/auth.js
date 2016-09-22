@@ -1,7 +1,7 @@
 // load required packages
 var passport = require('passport');
 var BearerStrategy = require('passport-http-bearer').Strategy
-var models = require('../models/index');
+var models = require('../models');
 
 passport.use(new BearerStrategy(function (accessToken, next) {
     models.Token.findOne({
@@ -21,3 +21,5 @@ passport.use(new BearerStrategy(function (accessToken, next) {
 }));
 
 exports.isBearerAuthenticated = passport.authenticate('bearer', {session: false});
+
+

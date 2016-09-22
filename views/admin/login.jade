@@ -1,0 +1,24 @@
+extends ../main
+
+block head
+    title login
+
+block content
+    if (err != "")
+        div.alert.alert-danger=err
+    div.col-md-4.col-md-offset-4
+        form.form-horizontal(method='POST' action='/admin/login')
+            div.form-group
+                label.col-sm-2(for='username') Username
+                div.input-group
+                    span.input-group-addon
+                        i.fa.fa-user(aria-hidden='true')
+                    input.form-control#username(name='username' type='text' placeholder="Enter your username")
+            div.form-group
+                label.col-sm-2(for='password') Password
+                div.input-group
+                    span.input-group-addon
+                        i.fa.fa-key(aria-hidden='true')
+                    input.form-control#password(name='password' type='password' placeholder="Enter your password")
+            div.form-group
+                button.btn.btn-block.btn-default(type=submit) Send

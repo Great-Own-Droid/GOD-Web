@@ -1,22 +1,29 @@
 var express = require('express');
-var path = require('path');
 var favicon = require('serve-favicon');
-var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
+var flash = require('connect-flash');
+
 var config = require('./config/config.json');
 var models = require('./models');
 var logger = require('./controller/logger')
+var routes = require('./routes');
+var userManager = require('./controller/manager/userManager');
+
 
 var app = express();
 
 // view engine setup
 logger.info("View engine setup");
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', 'views');
 app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+//app.use(favicon('public/favicon.ico'));
+
+logger.info("Serve static ressources setup");
+app.use(express.static('public'));
 
 logger.info("Body parser setup");
 app.use(bodyParser.json());
@@ -25,14 +32,23 @@ app.use(bodyParser.urlencoded({extended: false}));
 logger.info("Cookie parser setup");
 app.use(cookieParser());
 
+app.use(session({
+    secret: config.secret,
+    saveUninitialized: true,
+    resave: true,
+}));
 
-logger.info("Serve static ressources setup");
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(flash());
+
+app.use(function(req, res, next){
+    logger.info(req.method + " -> " + req.originalUrl);
+    next();
+});
+
+app.use(userManager.setUser);
 
 // Mount all routes
 logger.info("Mount routes setup");
-var routes = require('./routes');
-logger.info("Access routes to mount");
 app.use('/', routes);
 
 // catch 404 and forward to error handler
