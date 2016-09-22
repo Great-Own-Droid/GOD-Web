@@ -4,5 +4,5 @@ exports.root = function(req, res){
         return;
     }
 
-    res.json({message: "ta race"});
+    res.render('root/root');
 }
