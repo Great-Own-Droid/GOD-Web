@@ -5,9 +5,12 @@ var userRouter = require('./user');
 
 var router = express.Router();
 
-// Define global permission access for views
+// Define global permission access for api
 router.use(function (req, res, next) {
-    // TODO: permissions d'accés aux vues
+    if (!req.session.isConnected){
+        res.redirect('/login');
+        return;
+    }
     next();
 });
 

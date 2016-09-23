@@ -1,9 +1,13 @@
 var express = require('express');
-var apisRouter = require('./apis');
-var rootRouter = require('./root');
-var adminRouter = require('./admin');
+var apisRouter = require('./apis/index');
+var rootRouter = require('./root/index');
+var adminRouter = require('./admin/index');
+var signinRouter = require ('./signin');
 
 var router = express.Router();
+
+console.log('Mount signin routes');
+router.use('/', signinRouter);
 
 // Specifics paths
 console.log("Mount apis routes");

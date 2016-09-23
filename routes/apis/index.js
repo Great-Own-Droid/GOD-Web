@@ -1,19 +1,22 @@
 console.log("API ROUTER : Start define mountable apis");
 var express = require('express');
 
-var auth = require('../../controller/auth');
-
+var models = require('../../models');
 var contactRouter = require('./contact');
 //var userRouter = require('./user');
 
 var router = express.Router();
 
-var models = require('../../models');
-
-
 // Define global permission access for api
 router.use(function (req, res, next) {
-    auth.isBearerAuthenticated(req, res, next);
+    if (!req.session.isConnected){
+        res.status(501);
+        res.json({
+            message: "Disconnected"
+        });
+        return;
+    }
+    next();
 });
 
 // Define all apis
